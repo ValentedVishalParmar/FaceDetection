@@ -1,6 +1,7 @@
 package com.vishal.facedetection
 
 import android.app.Application
+import androidx.camera.core.CameraX
 
 class FaceDetectionApp: Application() {
 
