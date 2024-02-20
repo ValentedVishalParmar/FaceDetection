@@ -2,25 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- ESSENTIAL HARDWARE FEATURE -->
     <uses-feature android:name="android.hardware.camera.any" />
+
+    <!-- ESSENTIAL PERMISSION -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".FaceDetectionApp"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/ic_facial_recognition"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_facial_recognition"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FaceDetection"
         tools:targetApi="31">
 
-        <!-- FACE DETECTION SCREEN-->
+        <!-- SPLASH SCREEN -->
         <activity
-            android:name=".view.activity.FaceDetectionActivity"
+            android:name=".view.activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +32,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- PERMISSION SCREEN-->
+        <activity
+            android:name=".view.activity.PermissionActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <!-- FACE DETECTION SCREEN -->
+        <activity
+            android:name=".view.activity.FaceDetectionActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:exported="true"/>
+
+        <!-- FACE DETECTION RESULT SCREEN -->
+        <activity
+            android:name=".view.activity.FaceDetectionResultActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:exported="false" />
 
     </application>
 

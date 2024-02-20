@@ -1,4 +1,29 @@
 <resources>
-    <string name="app_name">FaceDetection</string>
+    <string name="app_name">Face Detection</string>
+    <string name="face_detection_result">Face Detection Result</string>
+    <string name="default_notification_channel_id">@string/app_name</string>
     <string name="switch_camera">Switch Camera</string>
+    <string name="permission_title">Permissions</string>
+    <!--PERMISSION SCREEN-->
+    <string name="permission_message">Following permissions are required to access some features of this application</string>
+    <string name="permission_notification">Notification permission is required while using this application</string>
+    <string name="title_permission_notification">Notification Permission</string>
+    <string name="cancel">Cancel</string>
+    <string name="notification">Notification</string>
+    <string name="open_setting">Open Setting</string>
+    <string name="permission_notification_description">To receive latest update about app features, notification permission is required</string>
+    <string name="next">Next</string>
+    <string name="permission_camera_description">To monitoring your face, camera permission is required</string>
+    <string name="camera">Camera</string>
+    <string name="no_face_detected">No face detected!</string>
+    <string name="text_camera_permission">Camera permission required while using the application</string>
+    <string name="title_camera_permission">Camera Permission</string>
+    <string name="exit_app">Tap again to exit app</string>
+    <string name="err_face_not_detected">Face not detected</string>
+    <string name="err_face_detected">Face detected</string>
+    <string name="err_face_far_detected">Face detected but it is far from device camera</string>
+    <string name="err_face_detected_not_center">Face detected but it is not in center of device camera</string>
+    <string name="okay">Okay</string>
+
+
 </resources>

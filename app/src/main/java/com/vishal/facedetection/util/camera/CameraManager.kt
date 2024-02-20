@@ -28,7 +28,6 @@ class CameraManager(
     private lateinit var cameraExecutor: ExecutorService
     private var cameraSelectorOption = CameraSelector.LENS_FACING_FRONT
     private var cameraProvider: ProcessCameraProvider? = null
-
     private var imageAnalyzer: ImageAnalysis? = null
 
 
@@ -37,7 +36,9 @@ class CameraManager(
     }
 
     private fun createNewExecutor() {
-        cameraExecutor = Executors.newSingleThreadExecutor()
+        if (cameraExecutor == null) {
+            cameraExecutor = Executors.newSingleThreadExecutor()
+        }
     }
 
     fun startCamera() {
