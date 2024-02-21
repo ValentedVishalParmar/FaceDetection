@@ -20,7 +20,9 @@ import com.vishal.facedetection.databinding.ActivityFaceDetectionResultBinding
 import com.vishal.facedetection.util.ExtraKey.EXTRA_KEY_FACE_STATUS_TYPE
 import com.vishal.facedetection.util.FaceStatus
 import com.vishal.facedetection.util.checkAppPermissions
+import com.vishal.facedetection.util.finishAndNavigateTo
 import com.vishal.facedetection.util.getData
+import com.vishal.facedetection.util.handleOnBackPressed
 import com.vishal.facedetection.util.setStatusBar
 import com.vishal.facedetection.util.setText
 import com.vishal.facedetection.util.showAlert
@@ -47,7 +49,7 @@ class FaceDetectionResultActivity : AppCompatActivity() {
 
     private fun onClick() {
         binding.btnOk.setOnClickListener {
-            finish()
+            finishAndNavigateTo(FaceDetectionActivity::class.java)
         }
     }
 
@@ -55,13 +57,14 @@ class FaceDetectionResultActivity : AppCompatActivity() {
         textToSpeech = TextToSpeech(this@FaceDetectionResultActivity) { i ->
             if (i != TextToSpeech.ERROR) {
                 textToSpeech?.setLanguage(Locale.UK)
+                Log.d("VRROR", "initAndManageFaceDetectionResult: $strFaceStatus")
                 when (strFaceStatus) {
                     FaceStatus.NO_FACE.name -> {
+                        setText(binding.tvMessage, getString(R.string.err_face_not_detected))
                         speak(getString(R.string.err_face_not_detected), textToSpeech)
                         if (checkAppPermissions()) {
                             showNotification()
                         }
-                        setText(binding.tvMessage, getString(R.string.err_face_not_detected))
 
                     }
 

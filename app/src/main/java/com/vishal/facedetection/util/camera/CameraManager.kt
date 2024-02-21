@@ -25,21 +25,11 @@ class CameraManager(
 
     private var preview: Preview? = null
     private var camera: Camera? = null
-    private lateinit var cameraExecutor: ExecutorService
+    private var cameraExecutor: ExecutorService = Executors.newSingleThreadExecutor()
     private var cameraSelectorOption = CameraSelector.LENS_FACING_FRONT
     private var cameraProvider: ProcessCameraProvider? = null
     private var imageAnalyzer: ImageAnalysis? = null
 
-
-    init {
-        createNewExecutor()
-    }
-
-    private fun createNewExecutor() {
-        if (cameraExecutor == null) {
-            cameraExecutor = Executors.newSingleThreadExecutor()
-        }
-    }
 
     fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)

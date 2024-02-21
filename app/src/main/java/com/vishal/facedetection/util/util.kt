@@ -130,7 +130,7 @@ fun <T> Activity.finishAndNavigateTo(mClass: Class<T>, bundle: (Bundle.() -> Uni
 }
 
 fun AppCompatActivity.speak(message:String, textToSpeech: TextToSpeech?) {
-    textToSpeech?.speak(message, TextToSpeech.QUEUE_FLUSH, null, null)
+    textToSpeech?.speak(message, TextToSpeech.QUEUE_ADD, null, null)
 }
 fun setText(textView: TextView, string: String?) {
     textView.text = string

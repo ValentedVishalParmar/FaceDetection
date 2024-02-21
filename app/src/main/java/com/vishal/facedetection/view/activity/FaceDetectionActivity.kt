@@ -30,8 +30,6 @@ import com.vishal.facedetection.util.toast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
-
-
 class FaceDetectionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFaceDetectionBinding
@@ -51,7 +49,7 @@ class FaceDetectionActivity : AppCompatActivity() {
         if (checkAppPermissions()) {
             cameraManager = CameraManager(this, binding.previewViewFinder, this, binding.graphicOverlayFinder, ::processPicture)
             lifecycleScope.launch {
-                delay(500)
+                delay(1000)
                 cameraManager.startCamera()
             }
         }
@@ -68,8 +66,8 @@ class FaceDetectionActivity : AppCompatActivity() {
     private fun processPicture(faceStatus: FaceStatus) {
         Log.e("ERROR>>", "This is it ${faceStatus.name}")
         lifecycleScope.launch {
-            delay(500)
-            finishAndNavigateTo(FaceDetectionResultActivity::class.java) {
+            delay(1000)
+            navigateTo(FaceDetectionResultActivity::class.java) {
                 this.putString(EXTRA_KEY_FACE_STATUS_TYPE, faceStatus.name)
             }
         }

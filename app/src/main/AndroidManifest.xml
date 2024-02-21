@@ -43,14 +43,14 @@
         <activity
             android:name=".view.activity.FaceDetectionActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:exported="true"/>
 
         <!-- FACE DETECTION RESULT SCREEN -->
         <activity
             android:name=".view.activity.FaceDetectionResultActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"
+            android:launchMode="singleInstance"
             android:exported="false" />
 
     </application>
