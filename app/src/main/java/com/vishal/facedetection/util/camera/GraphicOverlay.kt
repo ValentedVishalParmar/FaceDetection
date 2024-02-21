@@ -13,20 +13,9 @@ import kotlin.math.ceil
 
 open class GraphicOverlay(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
-
-    // Matrix for transforming from image coordinates to overlay view coordinates.
     private val transformationMatrix = Matrix()
-
-    // The factor of overlay View size to image size. Anything in the image coordinates need to be
-    // scaled by this amount to fit with the area of overlay View.
     private var scaleFactor = 1.0f
-
-    // The number of horizontal pixels needed to be cropped on each side to fit the image with the
-    // area of overlay View after scaling.
     private var postScaleWidthOffset = 0f
-
-    // The number of vertical pixels needed to be cropped on each side to fit the image with the
-    // area of overlay View after scaling.
     private var postScaleHeightOffset = 0f
     private var isImageFlipped = false
 

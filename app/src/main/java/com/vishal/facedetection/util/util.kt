@@ -2,7 +2,9 @@ package com.vishal.facedetection.util
 
 import android.Manifest
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -20,18 +22,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import com.vishal.facedetection.BuildConfig
+import com.vishal.facedetection.R
 import com.vishal.facedetection.view.activity.FaceDetectionActivity
 import com.vishal.facedetection.view.activity.PermissionActivity
-
-fun Activity.showAlert(title: String, message: String) {
-    val builder = AlertDialog.Builder(this)
-    builder.setTitle(title)
-    builder.setMessage(message)
-    builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+var builder : AlertDialog.Builder? = null
+var alertDialog :AlertDialog? = null
+fun Activity.showAlert(title: String, message: String, onButtonClick: () -> Unit) {
+    builder = AlertDialog.Builder(this)
+    builder?.setTitle(title)
+    builder?.setMessage(message)
+    builder?.setPositiveButton(android.R.string.yes) { dialog, which ->
+        alertDialog?.hide()
        dialog.dismiss()
-       finishAndNavigateTo(FaceDetectionActivity::class.java)
+       onButtonClick.invoke()
     }
-    builder.show()
+    alertDialog = builder?.create()
+
+    if (alertDialog?.isShowing?.not() == true) {
+        builder?.show()
+    }
 }
 fun AppCompatActivity.setStatusBar() {
     enableEdgeToEdge()
@@ -130,7 +139,7 @@ fun <T> Activity.finishAndNavigateTo(mClass: Class<T>, bundle: (Bundle.() -> Uni
 }
 
 fun AppCompatActivity.speak(message:String, textToSpeech: TextToSpeech?) {
-    textToSpeech?.speak(message, TextToSpeech.QUEUE_ADD, null, null)
+    textToSpeech?.speak(message, TextToSpeech.QUEUE_FLUSH, null, null)
 }
 fun setText(textView: TextView, string: String?) {
     textView.text = string

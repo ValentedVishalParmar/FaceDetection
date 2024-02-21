@@ -7,6 +7,7 @@ class FaceDetectionApp: Application() {
 
     companion object {
         var app: FaceDetectionApp ? = null
+        const val TAG = "ERROR>>"
     }
 
     override fun onCreate() {

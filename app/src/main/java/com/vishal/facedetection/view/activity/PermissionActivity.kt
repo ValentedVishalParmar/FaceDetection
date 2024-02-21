@@ -87,7 +87,8 @@ class PermissionActivity : AppCompatActivity() {
         } else {
             if (checkCameraPermission().not()) {
                 showCameraDialog()
-            } else {
+            }
+            if (checkCameraPermission().not()) {
                 showNotificationDialog()
             }
         }

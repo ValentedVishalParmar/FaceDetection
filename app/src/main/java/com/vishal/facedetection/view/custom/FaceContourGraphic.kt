@@ -4,18 +4,26 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 
 import com.google.mlkit.vision.face.Face
+import com.vishal.facedetection.FaceDetectionApp
+import com.vishal.facedetection.data.model.FaceDimensions
 import com.vishal.facedetection.util.FaceStatus
 import com.vishal.facedetection.util.camera.GraphicOverlay
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class FaceContourGraphic(
+    activity: AppCompatActivity,
     overlay: GraphicOverlay,
     private val face: Face,
     private val imageRect: Rect,
     private val onSuccessCallback: ((FaceStatus) -> Unit),
 ) : GraphicOverlay.Graphic(overlay) {
-
+    private var activity = activity
     private val facePositionPaint: Paint
     private val idPaint: Paint
     private val boxPaint: Paint
@@ -33,6 +41,7 @@ class FaceContourGraphic(
         boxPaint.style = Paint.Style.STROKE
         boxPaint.strokeWidth = BOX_STROKE_WIDTH
     }
+
     private val greenBoxPaint = Paint().apply {
         color = Color.GREEN
         style = Paint.Style.STROKE
@@ -54,19 +63,39 @@ class FaceContourGraphic(
         val faceDimensions = getFaceDimensions()
         when {
             checkIsToFar(faceDimensions) -> {
-                onSuccessCallback(FaceStatus.TOO_FAR)
-                canvas?.drawRect(rect,redBoxPaint)
+                this.activity.lifecycleScope.launch {
+                    delay(10 * 1000)
+
+                    onSuccessCallback(FaceStatus.TOO_FAR)
+
+                    Log.e(FaceDetectionApp.TAG, "Face Detector TOO_FAR*.")
+                }
+                canvas?.drawRect(rect, redBoxPaint)
             }
+
             checkIsNoCentered(faceDimensions) -> {
-                onSuccessCallback(FaceStatus.NOT_CENTERED)
-                canvas?.drawRect(rect,redBoxPaint)
+                this.activity.lifecycleScope.launch {
+                    delay(10 * 1000)
+                    Log.e(FaceDetectionApp.TAG, "Face Detector NOT_CENTERED")
+
+                    onSuccessCallback(FaceStatus.NOT_CENTERED)
+                }
+                canvas?.drawRect(rect, redBoxPaint)
             }
+
             else -> {
-                onSuccessCallback(FaceStatus.VALID)
-                canvas?.drawRect(rect,greenBoxPaint)
+                this.activity.lifecycleScope.launch {
+                    delay(10 * 1000)
+
+                    onSuccessCallback(FaceStatus.VALID)
+                    Log.e(FaceDetectionApp.TAG, "Face Detector VALID")
+
+                }
+                canvas?.drawRect(rect, greenBoxPaint)
             }
         }
     }
+
     companion object {
         private const val BOX_STROKE_WIDTH = 5.0f
     }
@@ -75,8 +104,8 @@ class FaceContourGraphic(
     private fun checkIsNoCentered(
         faceDimensions: FaceDimensions
     ): Boolean {
-        val width =  imageRect.width()
-        val height =  imageRect.height()
+        val width = imageRect.width()
+        val height = imageRect.height()
 
         return faceDimensions.left < 0 || faceDimensions.right > width || faceDimensions.top < 0 || faceDimensions.bottom > height
     }
@@ -85,8 +114,8 @@ class FaceContourGraphic(
         faceDimensions: FaceDimensions
     ): Boolean {
         val screenPercentage = 0.4f
-        val width =  imageRect.width()
-        val height =  imageRect.height()
+        val width = imageRect.width()
+        val height = imageRect.height()
 
         return (
                 faceDimensions.bottom - faceDimensions.top <= height * screenPercentage ||
@@ -108,12 +137,3 @@ class FaceContourGraphic(
     }
 
 }
-
-data class FaceDimensions(
-    val x: Float,
-    val y: Float,
-    val left: Float,
-    val top: Float,
-    val right: Float,
-    val bottom: Float,
-)

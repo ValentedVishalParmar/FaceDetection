@@ -46,13 +46,6 @@
             android:launchMode="singleTask"
             android:exported="true"/>
 
-        <!-- FACE DETECTION RESULT SCREEN -->
-        <activity
-            android:name=".view.activity.FaceDetectionResultActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleInstance"
-            android:exported="false" />
-
     </application>
 
 </manifest>
